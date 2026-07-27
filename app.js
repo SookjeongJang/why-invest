@@ -1,2 +1,315 @@
-const T={interest:{i:'🏦',t:'금리',s:'돈의 가격은 왜 움직일까?',e:'금리는 돈을 빌린 대가예요. 오르면 대출 부담이 커지고 소비와 투자가 줄 수 있어요.',n:'금리는 자금의 수요와 공급, 물가, 중앙은행 정책에 따라 움직이며 대출·예금·채권·주식에 연쇄적으로 영향을 줍니다.',a:'정책금리는 기대 인플레이션, 실질금리와 금융여건을 통해 자산가격과 실물경제에 전달됩니다.',q:'물가가 오를 때 중앙은행은 왜 금리를 올릴까요?',c:['소비와 대출을 줄여 물가 압력을 낮추려고','주가를 반드시 떨어뜨리려고'],ok:0,next:'inflation'},bond:{i:'📄',t:'국채',s:'정부가 돈을 빌리는 방법',e:'국채는 정부가 돈을 빌리고 발행하는 약속장이에요.',n:'국채는 정부가 자금을 조달하기 위해 발행하는 채권이며 만기와 이자 구조에 따라 가격과 수익률이 달라집니다.',a:'국채 수익률은 무위험금리의 기준이며 기대 정책금리·인플레이션·기간 프리미엄을 반영합니다.',q:'시장금리가 오르면 기존 저금리 국채가 덜 매력적인 이유는?',c:['새 채권이 더 높은 이자를 줄 수 있어서','정부가 자동으로 파산해서'],ok:0,next:'interest'},etf:{i:'🧺',t:'ETF',s:'여러 자산을 한 바구니에',e:'ETF는 여러 주식이나 채권을 한 바구니처럼 묶은 상품이에요.',n:'ETF는 특정 지수나 자산군을 추종하는 상장펀드입니다. 분산이 쉽지만 구조와 비용을 확인해야 합니다.',a:'ETF 선택 시 추적오차, 총보수, 거래대금, 과세, 환헤지와 기초지수 방법론을 봐야 합니다.',q:'같은 지수를 따라가는 ETF가 여러 개라면 무엇을 비교할까요?',c:['보수·거래량·추적오차','이름이 가장 멋진 상품'],ok:0,next:'risk'},exchange:{i:'💱',t:'환율',s:'서로 다른 돈의 교환비율',e:'환율은 한 나라 돈을 다른 나라 돈으로 바꿀 때의 비율이에요.',n:'환율은 금리차, 무역수지, 자금 이동, 위험선호와 정책 기대의 영향을 받습니다.',a:'환율은 명목·실질금리차, 경상수지, 자금 흐름과 위험 프리미엄의 상호작용 결과입니다.',q:'원/달러 환율이 오른다는 말은 보통 무슨 뜻일까요?',c:['1달러를 사는 데 더 많은 원화가 필요해요','원화 가치가 반드시 올랐어요'],ok:0,next:'inflation'},inflation:{i:'🎈',t:'인플레이션',s:'물가가 계속 오르는 현상',e:'인플레이션은 물건과 서비스의 전반적인 가격이 계속 오르는 현상이에요.',n:'인플레이션은 수요 증가, 공급 제약, 비용 상승과 기대 변화 등으로 발생할 수 있습니다.',a:'인플레이션은 수요견인·비용인상·기대 형성의 상호작용이며 통화정책은 기대 안정에도 작용합니다.',q:'물가가 오르면 같은 돈으로 살 수 있는 양은?',c:['줄어들어요','늘어나요'],ok:0,next:'interest'},stock:{i:'📈',t:'주식',s:'기업의 일부를 소유한다는 것',e:'주식은 회사의 아주 작은 일부를 소유하는 권리예요.',n:'주식 가격은 기업의 미래 이익 기대, 금리, 위험, 수급과 심리에 영향을 받습니다.',a:'주식가치는 예상 현금흐름과 할인율, 성장률, 자본비용 및 위험 프리미엄의 함수로 볼 수 있습니다.',q:'기업 실적이 좋아도 주가가 떨어질 수 있는 이유는?',c:['시장 기대보다 낮거나 이미 반영됐을 수 있어서','실적과 주가는 절대 관련이 없어서'],ok:0,next:'risk'},risk:{i:'⚖️',t:'위험',s:'모르는 것과 흔들림을 다루기',e:'투자 위험은 손실 가능성과 결과의 불확실성을 뜻해요.',n:'위험은 가격변동뿐 아니라 신용·유동성·환율·집중·행동 위험도 포함합니다.',a:'위험은 변동성만으로 설명되지 않으며 영구손실 가능성, 극단위험과 상관구조도 고려해야 합니다.',q:'분산투자는 모든 위험을 없애줄까요?',c:['아니요, 특정 위험을 줄일 뿐이에요','네, 손실 가능성이 0이 돼요'],ok:0,next:'etf'}};
-let S={theme:localStorage.witheme||'map',level:localStorage.wilevel||'normal',history:JSON.parse(localStorage.wihistory||'[]'),notes:JSON.parse(localStorage.winotes||'[]'),current:null};const app=document.querySelector('#app');document.body.dataset.theme=S.theme;document.querySelector('#level').value=S.level;function save(){localStorage.witheme=S.theme;localStorage.wilevel=S.level;localStorage.wihistory=JSON.stringify(S.history);localStorage.winotes=JSON.stringify(S.notes)}function home(){app.innerHTML=`<section class='hero'><span class='muted'>추천보다 이해를 먼저</span><h1>오늘은 무엇이<br>궁금하세요?</h1><p>정답을 대신 정해주지 않아요. 질문을 따라가며 경제와 투자의 연결을 스스로 이해해봐요.</p><div class='search'><input id='search' placeholder='예: 금리가 오르면 주식은 왜 흔들릴까?'><button class='primary' id='go'>탐험 시작</button></div></section><section class='section'><h2>많이 시작하는 탐험</h2><p class='muted'>하나만 골라도 다음 질문이 이어져요.</p><div class='grid'>${Object.entries(T).slice(0,6).map(([k,v])=>`<button class='card' data-topic='${k}'><span>${v.i}</span><strong>${v.t}</strong><small>${v.s}</small></button>`).join('')}</div></section>`;bindTopics();document.querySelector('#go').onclick=()=>{let q=document.querySelector('#search').value;let m=Object.entries(T).find(([k,v])=>q.includes(v.t));start(m?m[0]:'interest')}}function bindTopics(){document.querySelectorAll('[data-topic]').forEach(b=>b.onclick=()=>start(b.dataset.topic))}function start(k){S.current=k;S.history.push({topic:k,at:new Date().toISOString()});save();explore()}function explore(){let v=T[S.current],txt=S.level==='easy'?v.e:S.level==='advanced'?v.a:v.n;app.innerHTML=`<section class='question'><button id='back'>← 홈</button><h1>${v.i} ${v.t}</h1><p class='muted'>${v.s}</p><div class='box'><h2>${v.q}</h2><p style='line-height:1.8'>${txt}</p><div class='source'>학습용 요약입니다. 실제 판단 전 공식 자료와 상품 설명서를 확인하세요.</div><div class='choices'>${v.c.map((x,i)=>`<button data-choice='${i}'>${x}</button>`).join('')}</div><div id='feedback'></div><div class='notearea'><strong>내 말로 한 줄만 적어볼까요?</strong><p class='muted'>정답처럼 쓰지 않아도 괜찮아요.</p><textarea id='note' placeholder='배운 내용을 내 말로 적어보세요.'></textarea><div class='row'><span class='muted'>생각이 깊어지는 입력은 남겨요.</span><button class='primary' id='saveNote'>저장</button></div></div></div></section>`;document.querySelector('#back').onclick=home;document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{let ok=+b.dataset.choice===v.ok;document.querySelector('#feedback').innerHTML=`<div class='source'><strong>${ok?'좋아요.':'조금 다르게 연결해볼게요.'}</strong><br>${ok?'핵심을 잘 짚었어요.':'설명을 다시 읽고 한 줄로 적어보면 기억에 더 잘 남아요.'}<br><button id='next'>${T[v.next].t}로 이어가기 →</button></div>`;document.querySelector('#next').onclick=()=>start(v.next)});document.querySelector('#saveNote').onclick=()=>{let text=document.querySelector('#note').value.trim();if(!text)return;S.notes.push({id:Date.now(),topic:S.current,text,at:new Date().toISOString()});save();document.querySelector('#note').value='';document.querySelector('#saveNote').textContent='저장했어요 ✓'}}function history(){let a=S.history.slice().reverse();app.innerHTML=`<section class='section'><h2>이어보기</h2><div class='stack'>${a.length?a.map(x=>`<button class='card' data-topic='${x.topic}'><div class='row'><div><strong>${T[x.topic].i} ${T[x.topic].t}</strong><small>${new Date(x.at).toLocaleString('ko-KR')}</small></div><span>열기 →</span></div></button>`).join(''):`<div class='card muted'>아직 기록이 없어요.</div>`}</div></section>`;bindTopics()}function notes(){let a=S.notes.slice().reverse();app.innerHTML=`<section class='section'><h2>내 생각</h2><div class='stack'>${a.length?a.map(x=>`<article class='card'><strong>${T[x.topic].i} ${T[x.topic].t}</strong><p>${x.text.replace(/[<>&]/g,'')}</p><small>${new Date(x.at).toLocaleString('ko-KR')}</small></article>`).join(''):`<div class='card muted'>저장한 생각이 없어요.</div>`}</div></section>`}function map(){let u=[...new Set(S.history.map(x=>x.topic))];let ice=S.theme==='iceberg'?' ice':'';app.innerHTML=`<section class='section'><div class='row'><div><h2>지식지도</h2><p class='muted'>탐험한 개념이 자동으로 모여요.</p></div><button id='change'>관점 바꾸기</button></div><div class='mapstage${ice}'><span class='node root'>나의 호기심</span>${u.map(k=>`<span class='node'>${T[k].i} ${T[k].t}</span>`).join('')}</div></section>`;document.querySelector('#change').onclick=()=>document.querySelector('#themeDialog').showModal()}document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>({home,history,notes,map}[b.dataset.view]())) ;document.querySelector('#level').onchange=e=>{S.level=e.target.value;save();if(S.current&&document.querySelector('.question'))explore()};document.querySelector('#themeBtn').onclick=()=>document.querySelector('#themeDialog').showModal();document.querySelector('#closeTheme').onclick=()=>document.querySelector('#themeDialog').close();document.querySelectorAll('[data-theme]').forEach(b=>b.onclick=()=>{S.theme=b.dataset.theme;document.body.dataset.theme=S.theme;save();document.querySelector('#themeDialog').close();home()});document.querySelector('#backupBtn').onclick=()=>{let blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='why-invest-backup.json';a.click()};home();
+
+const lessons = {
+  interest: {
+    icon: "🏦",
+    name: "금리",
+    desc: "돈을 빌리는 가격부터 시작해요.",
+    steps: [
+      {
+        kicker: "첫 번째 칸",
+        title: "금리는 무엇일까요?",
+        body: "금리는 돈을 빌린 사람이 빌려준 사람에게 내는 사용료예요.<div class='key-box'>쉽게 말하면 금리는 ‘돈의 가격’이에요.</div>",
+        choices: ["그럼 금리가 오르면 어떻게 돼?", "왜 중앙은행이 금리를 정해?"]
+      },
+      {
+        kicker: "두 번째 칸",
+        title: "금리가 오르면 왜 소비가 줄까요?",
+        body: "대출이자 부담이 커지고, 예금의 매력이 높아지기 때문이에요. 사람과 기업은 지출보다 저축을 선택할 가능성이 커져요.",
+        choices: ["그럼 주식에는 어떤 영향이 있어?", "물가와는 무슨 관계야?"]
+      },
+      {
+        kicker: "세 번째 칸",
+        title: "금리는 경제의 속도 조절 장치예요.",
+        body: "물가가 너무 빠르게 오르면 금리를 올려 수요를 진정시키고, 경기가 너무 느려지면 금리를 내려 소비와 투자를 돕기도 해요.",
+        final: true
+      }
+    ]
+  },
+  etf: {
+    icon: "🧺",
+    name: "ETF",
+    desc: "여러 자산을 한 바구니에 담아요.",
+    steps: [
+      {
+        kicker: "첫 번째 칸",
+        title: "ETF는 무엇일까요?",
+        body: "ETF는 여러 주식이나 채권을 한 바구니에 담아 거래소에서 사고팔 수 있게 만든 상품이에요.<div class='key-box'>한 종목이 아니라 ‘묶음’을 사는 방식이에요.</div>",
+        choices: ["왜 한 종목보다 덜 위험할 수 있어?", "펀드와 뭐가 달라?"]
+      },
+      {
+        kicker: "두 번째 칸",
+        title: "ETF가 분산에 도움이 되는 이유",
+        body: "여러 자산을 함께 담으면 특정 기업 하나의 문제가 전체 결과에 미치는 영향을 줄일 수 있어요. 다만 손실 가능성이 없어지는 것은 아니에요.",
+        choices: ["ETF도 종류가 많아?", "수수료는 왜 봐야 해?"]
+      },
+      {
+        kicker: "세 번째 칸",
+        title: "ETF는 구조를 이해하고 골라야 해요.",
+        body: "어떤 지수를 따라가는지, 어떤 자산이 들어 있는지, 수수료와 거래량은 어떤지 확인하는 습관이 중요해요.",
+        final: true
+      }
+    ]
+  },
+  exchange: {
+    icon: "💱",
+    name: "환율",
+    desc: "원화와 달러의 교환 가격이에요.",
+    steps: [
+      {
+        kicker: "첫 번째 칸",
+        title: "환율은 무엇일까요?",
+        body: "환율은 서로 다른 나라의 돈을 바꾸는 비율이에요.<div class='key-box'>원·달러 환율은 달러 1달러를 사는 데 필요한 원화의 양을 뜻해요.</div>",
+        choices: ["환율이 오르면 무슨 뜻이야?", "왜 매일 변해?"]
+      },
+      {
+        kicker: "두 번째 칸",
+        title: "원·달러 환율이 오르면?",
+        body: "같은 1달러를 사는 데 더 많은 원화가 필요해요. 일반적으로 원화 가치가 달러보다 약해졌다고 표현해요.",
+        choices: ["수입 물가에는 어떤 영향이 있어?", "수출 기업에는 무조건 좋아?"]
+      },
+      {
+        kicker: "세 번째 칸",
+        title: "환율은 여러 힘이 함께 움직여요.",
+        body: "금리 차이, 경기 전망, 무역, 투자자 심리처럼 여러 요인이 동시에 영향을 줘요. 한 가지 이유만으로 설명하기 어려운 경우가 많아요.",
+        final: true
+      }
+    ]
+  },
+  bond: {
+    icon: "📄",
+    name: "채권",
+    desc: "정부나 기업에 돈을 빌려주는 증서예요.",
+    steps: [
+      {
+        kicker: "첫 번째 칸",
+        title: "채권은 무엇일까요?",
+        body: "채권은 정부나 기업이 돈을 빌리고, 약속한 이자와 원금을 갚겠다는 증서예요.<div class='key-box'>채권을 산다는 것은 발행자에게 돈을 빌려주는 일이에요.</div>",
+        choices: ["채권 가격은 왜 움직여?", "국채와 회사채는 뭐가 달라?"]
+      },
+      {
+        kicker: "두 번째 칸",
+        title: "금리와 채권 가격은 왜 반대로 움직일까요?",
+        body: "새로 발행되는 채권의 금리가 더 높아지면, 기존의 낮은 이자 채권은 매력이 줄어 가격이 내려갈 수 있어요.",
+        choices: ["그럼 금리가 내리면?", "만기가 길면 왜 더 민감해?"]
+      },
+      {
+        kicker: "세 번째 칸",
+        title: "채권도 위험을 살펴야 해요.",
+        body: "발행자가 돈을 갚지 못할 위험, 금리 변화, 만기까지의 기간 등을 함께 봐야 해요.",
+        final: true
+      }
+    ]
+  },
+  stock: {
+    icon: "📈",
+    name: "주식",
+    desc: "기업의 일부를 소유하는 권리예요.",
+    steps: [
+      {
+        kicker: "첫 번째 칸",
+        title: "주식은 무엇일까요?",
+        body: "주식은 기업의 소유권을 잘게 나눈 단위예요.<div class='key-box'>주식을 산다는 것은 그 기업의 일부를 소유하는 일이에요.</div>",
+        choices: ["주가는 왜 움직여?", "배당은 뭐야?"]
+      },
+      {
+        kicker: "두 번째 칸",
+        title: "주가는 기대에 따라 움직여요.",
+        body: "현재 실적뿐 아니라 앞으로의 성장 가능성, 금리, 경기, 투자자 심리까지 가격에 영향을 줘요.",
+        choices: ["좋은 회사면 주가도 항상 올라?", "실적 발표는 왜 중요해?"]
+      },
+      {
+        kicker: "세 번째 칸",
+        title: "기업과 가격을 구분해서 봐야 해요.",
+        body: "좋은 기업도 지나치게 비싼 가격에 사면 만족스러운 결과를 얻기 어려울 수 있어요. 기업의 질과 매수가격을 함께 보는 습관이 필요해요.",
+        final: true
+      }
+    ]
+  },
+  inflation: {
+    icon: "🛒",
+    name: "물가",
+    desc: "생활비가 왜 달라지는지 알아봐요.",
+    steps: [
+      {
+        kicker: "첫 번째 칸",
+        title: "물가가 오른다는 것은?",
+        body: "같은 돈으로 살 수 있는 물건과 서비스가 줄어든다는 뜻이에요.<div class='key-box'>물가 상승은 돈의 구매력이 낮아지는 현상이에요.</div>",
+        choices: ["왜 물가가 올라?", "임금도 같이 오르면 괜찮아?"]
+      },
+      {
+        kicker: "두 번째 칸",
+        title: "물가는 왜 오를까요?",
+        body: "수요가 공급보다 빠르게 늘거나, 원재료·임금·운송비 같은 생산비가 오를 때 물가가 상승할 수 있어요.",
+        choices: ["금리와는 어떤 관계야?", "모든 물건이 똑같이 올라?"]
+      },
+      {
+        kicker: "세 번째 칸",
+        title: "체감 물가와 공식 물가는 다를 수 있어요.",
+        body: "사람마다 자주 사는 품목이 다르기 때문에 공식 지표와 실제 생활에서 느끼는 부담이 다를 수 있어요.",
+        final: true
+      }
+    ]
+  }
+};
+
+const state = {
+  topicKey: null,
+  stepIndex: 0
+};
+
+const views = {
+  welcome: document.getElementById("welcomeView"),
+  lesson: document.getElementById("lessonView"),
+  complete: document.getElementById("completeView"),
+  records: document.getElementById("recordsView")
+};
+
+function showView(name) {
+  Object.values(views).forEach(view => view.classList.remove("active"));
+  views[name].classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderTopics() {
+  const grid = document.getElementById("topicGrid");
+  grid.innerHTML = Object.entries(lessons).map(([key, topic]) => `
+    <button class="topic-btn" data-topic="${key}">
+      <span>${topic.icon}</span>
+      <strong>${topic.name}</strong>
+      <small>${topic.desc}</small>
+    </button>
+  `).join("");
+
+  grid.querySelectorAll(".topic-btn").forEach(btn => {
+    btn.addEventListener("click", () => startTopic(btn.dataset.topic));
+  });
+}
+
+function startTopic(topicKey) {
+  state.topicKey = topicKey;
+  state.stepIndex = 0;
+  renderLesson();
+  showView("lesson");
+}
+
+function renderBoard() {
+  const topic = lessons[state.topicKey];
+  const track = document.getElementById("boardTrack");
+  track.innerHTML = topic.steps.map((step, index) => {
+    const status = index < state.stepIndex ? "done" : index === state.stepIndex ? "active" : "";
+    return `<div class="board-step ${status}">${index + 1}칸 · ${step.title}</div>`;
+  }).join("");
+  document.getElementById("progressText").textContent = `${state.stepIndex + 1} / ${topic.steps.length}`;
+}
+
+function renderLesson() {
+  const topic = lessons[state.topicKey];
+  const step = topic.steps[state.stepIndex];
+
+  renderBoard();
+  document.getElementById("lessonKicker").textContent = `${topic.icon} ${topic.name} · ${step.kicker}`;
+  document.getElementById("lessonTitle").textContent = step.title;
+  document.getElementById("lessonBody").innerHTML = step.body;
+
+  const choiceArea = document.getElementById("choiceArea");
+  const noteArea = document.getElementById("noteArea");
+  noteArea.classList.add("hidden");
+  choiceArea.innerHTML = "";
+
+  if (step.final) {
+    choiceArea.innerHTML = `<button class="choice-btn" id="writeNoteBtn">이제 내 말로 한 줄 정리해볼래요 →</button>`;
+    document.getElementById("writeNoteBtn").addEventListener("click", () => {
+      choiceArea.innerHTML = "";
+      noteArea.classList.remove("hidden");
+      document.getElementById("noteInput").focus();
+    });
+  } else {
+    choiceArea.innerHTML = step.choices.map(text => `<button class="choice-btn">${text} →</button>`).join("");
+    choiceArea.querySelectorAll(".choice-btn").forEach(btn => {
+      btn.addEventListener("click", nextStep);
+    });
+  }
+}
+
+function nextStep() {
+  const topic = lessons[state.topicKey];
+  if (state.stepIndex < topic.steps.length - 1) {
+    state.stepIndex += 1;
+    renderLesson();
+  }
+}
+
+function saveRecord(note) {
+  const topic = lessons[state.topicKey];
+  const records = JSON.parse(localStorage.getItem("whyInvestRecords") || "[]");
+  records.unshift({
+    topic: topic.name,
+    icon: topic.icon,
+    note,
+    createdAt: new Date().toISOString()
+  });
+  localStorage.setItem("whyInvestRecords", JSON.stringify(records));
+}
+
+function completeLesson() {
+  const note = document.getElementById("noteInput").value.trim();
+  if (!note) {
+    alert("한 줄을 먼저 적어주세요.");
+    return;
+  }
+  saveRecord(note);
+  const topic = lessons[state.topicKey];
+  document.getElementById("completeSummary").textContent = `${topic.name} 탐험을 끝냈어요.`;
+  document.getElementById("savedNoteText").textContent = note;
+  document.getElementById("noteInput").value = "";
+  document.getElementById("charCount").textContent = "0 / 120";
+  showView("complete");
+}
+
+function renderRecords() {
+  const records = JSON.parse(localStorage.getItem("whyInvestRecords") || "[]");
+  const list = document.getElementById("recordsList");
+
+  if (!records.length) {
+    list.innerHTML = `<div class="empty-state">아직 기록이 없어요.<br>첫 번째 지식 한 칸을 넓혀볼까요?</div>`;
+    return;
+  }
+
+  list.innerHTML = records.map(record => {
+    const date = new Date(record.createdAt).toLocaleString("ko-KR", {
+      year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit"
+    });
+    return `
+      <article class="record-item">
+        <div class="meta">${record.icon} ${record.topic} · ${date}</div>
+        <strong>${record.note}</strong>
+      </article>
+    `;
+  }).join("");
+}
+
+document.getElementById("saveNoteBtn").addEventListener("click", completeLesson);
+document.getElementById("noteInput").addEventListener("input", e => {
+  document.getElementById("charCount").textContent = `${e.target.value.length} / 120`;
+});
+document.getElementById("backHomeBtn").addEventListener("click", () => showView("welcome"));
+document.getElementById("anotherTopicBtn").addEventListener("click", () => showView("welcome"));
+document.getElementById("reviewBtn").addEventListener("click", () => {
+  renderRecords();
+  showView("records");
+});
+document.getElementById("recordsNavBtn").addEventListener("click", () => {
+  renderRecords();
+  showView("records");
+});
+document.getElementById("recordsHomeBtn").addEventListener("click", () => showView("welcome"));
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (confirm("저장된 학습 기록을 모두 지울까요?")) {
+    localStorage.removeItem("whyInvestRecords");
+    alert("기록을 초기화했어요.");
+    showView("welcome");
+  }
+});
+
+renderTopics();
+showView("welcome");

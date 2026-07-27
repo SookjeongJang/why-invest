@@ -1,1 +1,99 @@
-<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Why Invest</title><link rel='stylesheet' href='styles.css'></head><body><header><div><strong>Why Invest</strong><small>호기심으로 시작하는 경제 공부</small></div><div><select id='level'><option value='easy'>쉽게</option><option value='normal' selected>보통</option><option value='advanced'>깊게</option></select><button id='themeBtn'>관점 바꾸기</button><button id='backupBtn'>백업</button></div></header><main id='app'></main><nav><button data-view='home'>홈</button><button data-view='history'>이어보기</button><button data-view='notes'>내 생각</button><button data-view='map'>지식지도</button></nav><dialog id='themeDialog'><h2>학습 관점</h2><div class='themes'><button data-theme='map'>🗺️ 지도</button><button data-theme='tree'>🌳 나무</button><button data-theme='iceberg'>🧊 빙하</button><button data-theme='constellation'>🌌 별자리</button></div><button id='closeTheme'>닫기</button></dialog><script src='app.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f2e8" />
+  <title>Why Invest</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">경제를 탐험하는 공부</p>
+        <h1>Why Invest</h1>
+      </div>
+      <button id="resetBtn" class="ghost-btn">기록 초기화</button>
+    </header>
+
+    <main>
+      <section id="welcomeView" class="view active">
+        <div class="hero-card">
+          <span class="badge">첫 번째 탐험</span>
+          <h2>오늘은 무엇이 궁금하세요?</h2>
+          <p>하나를 고르면 질문을 따라가며 경제 개념을 한 칸씩 이해해요.</p>
+          <div id="topicGrid" class="topic-grid"></div>
+        </div>
+      </section>
+
+      <section id="lessonView" class="view">
+        <div class="lesson-layout">
+          <aside class="board-card">
+            <div class="board-title">
+              <span>탐험 보드</span>
+              <strong id="progressText">1 / 3</strong>
+            </div>
+            <div id="boardTrack" class="board-track"></div>
+          </aside>
+
+          <article class="lesson-card">
+            <button id="backHomeBtn" class="text-btn">← 주제 다시 고르기</button>
+            <p id="lessonKicker" class="eyebrow"></p>
+            <h2 id="lessonTitle"></h2>
+            <div id="lessonBody" class="lesson-body"></div>
+            <div id="choiceArea" class="choice-area"></div>
+
+            <div id="noteArea" class="note-area hidden">
+              <label for="noteInput">내 말로 한 줄 남기기</label>
+              <textarea id="noteInput" maxlength="120" placeholder="예: 금리는 돈을 빌리는 가격이다."></textarea>
+              <div class="note-actions">
+                <span id="charCount">0 / 120</span>
+                <button id="saveNoteBtn" class="primary-btn">저장하고 완료</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="completeView" class="view">
+        <div class="hero-card complete-card">
+          <div class="complete-icon">★</div>
+          <p class="eyebrow">오늘의 탐험 완료</p>
+          <h2>지식 한 칸을 넓혔어요.</h2>
+          <p id="completeSummary"></p>
+          <div class="saved-note">
+            <span>내가 남긴 한 줄</span>
+            <strong id="savedNoteText"></strong>
+          </div>
+          <div class="complete-actions">
+            <button id="anotherTopicBtn" class="primary-btn">다른 주제 탐험</button>
+            <button id="reviewBtn" class="secondary-btn">내 기록 보기</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="recordsView" class="view">
+        <div class="records-card">
+          <div class="records-header">
+            <div>
+              <p class="eyebrow">나의 기록</p>
+              <h2>지금까지 넓힌 지식</h2>
+            </div>
+            <button id="recordsHomeBtn" class="secondary-btn">홈으로</button>
+          </div>
+          <div id="recordsList" class="records-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <button id="recordsNavBtn" class="footer-btn">내 기록 보기</button>
+      <span>데이터는 이 브라우저에 저장돼요.</span>
+    </footer>
+  </div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
