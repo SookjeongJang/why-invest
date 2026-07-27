@@ -98,3 +98,43 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:18p
   .topbar h1{font-size:24px}
   footer{align-items:flex-start;gap:8px;flex-direction:column}
 }
+
+
+/* V0.3: 질문을 한 번 눌러 답을 확인하고, 다시 눌러 다음 설명으로 이동 */
+.choice-btn{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:7px 12px;
+  align-items:center;
+  min-height:76px;
+  transition:background .22s ease,border-color .22s ease,transform .22s ease,opacity .22s ease;
+}
+.choice-question{font-weight:850}
+.choice-arrow{font-size:20px;color:var(--accent);transition:transform .22s ease}
+.choice-answer{
+  grid-column:1 / -1;
+  color:var(--accent);
+  font-weight:800;
+  line-height:1.55;
+}
+.choice-hint{
+  grid-column:1 / -1;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:650;
+}
+.choice-btn.revealed{
+  background:var(--accent-soft);
+  border-color:var(--accent);
+  transform:none;
+}
+.choice-btn.revealed .choice-arrow{transform:rotate(90deg)}
+.choice-btn.moving{opacity:.58;pointer-events:none}
+.lesson-card{
+  animation:viewFade .28s ease;
+}
+@keyframes viewFade{
+  from{opacity:.3;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
