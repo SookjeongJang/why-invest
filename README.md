@@ -1,26 +1,16 @@
-# Why Invest
-Helping people understand investing by exploring curiosity instead of receiving recommendations.
+# Why Invest 웹 프로토타입
 
-## Mission
+## 실행
+압축을 풀고 `index.html`을 더블클릭하세요.
 
-Helping people rediscover curiosity through investing.
+## 포함 기능
+- 금리, 국채, ETF, 환율, 인플레이션, 주식, 위험 학습 카드
+- 쉬움/보통/깊게 설명 수준
+- 질문을 따라가는 탐험
+- 내 말로 한 줄 기록
+- 최근 탐험 이어보기
+- 지도/나무/빙하/별자리 관점
+- 브라우저 로컬 저장과 JSON 백업
 
----
-
-## Vision
-
-People don't need more investment recommendations.
-
-They need better questions.
-
----
-
-## Current Stage
-
-✅ Product Discovery
-
----
-
-## Next Milestone
-
-Sprint 1
+## 주의
+이 버전은 실제 AI나 실시간 경제 데이터에 연결되지 않은 개인 테스트용 정적 프로토타입입니다. 투자 조언이 아닙니다.
